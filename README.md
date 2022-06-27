@@ -70,7 +70,7 @@ class Player
   - [x] `cards` (array)
   - [x] `lost` (bool, default = false)
   - ```php
-    private array $cards = [];
+    private array $cards;
     private bool $lost = false;
     ```
 - Add a couple of empty public methods to this class:
@@ -98,16 +98,53 @@ class Player
 
 - [x] Create a class called `Blackjack` in the file `Blackjack.php`.
 ```php 
+<?php
 
+declare(strict_types=1);
+
+class Blackjack
+{
+
+}
 ```
 - Add 3 private properties:
-  - [ ] `player` (Player)
-  - [ ] `dealer` (Player for now)
-  - [ ] `deck` (Deck)
+  - [x] `player` (Player)
+  - [x] `dealer` (Player for now)
+  - [x] `deck` (Deck)
+  - ```php
+    private object $player;
+    private object $dealer;
+    private object $deck;
+    ```
 - Add the following public methods:
-  - [ ] `getPlayer` (returns the `player` object)
-  - [ ] `getDealer` (returns the `dealer` object)
-  - [ ] `getDeck` (returns the `deck` object)
+  - [x] `getPlayer` (returns the `player` object)
+  - [x] `getDealer` (returns the `dealer` object)
+  - [x] `getDeck` (returns the `deck` object)
+  - ```php
+    /**
+     * @return object
+     */
+    public function getPlayer(): object
+    {
+        return $this->player;
+    }
+
+    /**
+     * @return object
+     */
+    public function getDealer(): object
+    {
+        return $this->dealer;
+    }
+
+    /**
+     * @return object
+     */
+    public function getDeck(): object
+    {
+        return $this->deck;
+    }
+    ```
 - In the [constructor](https://www.php.net/manual/en/language.oop5.decon.php) do the following:
   - [ ] Instantiate the Player class twice, insert it into the `player` property and a `dealer` property.
   - [ ] Create a new `deck` object (the code has already been written for us!).
