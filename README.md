@@ -55,17 +55,51 @@ for some more clarity. Reminder: don't feel bad, it's normal that this will feel
 ### Instructions for the dive
 
 #### Take a dive to about 10 meters and create the base classes
-- [ ] Create a class called `Player` in the file `Player.php`.
-- Add 2 private properties:
-  - [ ] `cards` (array)
-  - [ ] `lost` (bool, default = false)
-- Add a couple of empty public methods to this class:
-  - [ ] `hit`
-  - [ ] `surrender`
-  - [ ] `getScore`
-  - [ ] `hasLost`
+- [x] Create a class called `Player` in the file `Player.php`.
+```php
+<?php
 
-- Create a class called `Blackjack` in the file `Blackjack.php`.
+declare(strict_types=1);
+
+class Player
+{
+
+}
+```
+- Add 2 private properties (inside our class):
+  - [x] `cards` (array)
+  - [x] `lost` (bool, default = false)
+  - ```php
+    private array $cards = [];
+    private bool $lost = false;
+    ```
+- Add a couple of empty public methods to this class:
+  - [x] `hit`
+  - [x] `surrender`
+  - [x] `getScore`
+  - [x] `hasLost`
+  - ```php
+    public function hit() {
+
+    }
+    
+    public function surrender() {
+        
+    }
+    
+    public function getScore() {
+        
+    }
+    
+    public function hasLost() {
+        
+    }
+    ```
+
+- [x] Create a class called `Blackjack` in the file `Blackjack.php`.
+```php 
+
+```
 - Add 3 private properties:
   - [ ] `player` (Player)
   - [ ] `dealer` (Player for now)
