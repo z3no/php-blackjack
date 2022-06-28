@@ -297,6 +297,45 @@ I think this will do the trick for our dealer, let's go on to the next steps!
 #### Let's go for the final push and dive to 18 meters
 Now that all our classes are ready we just need to keep breathing calmly, we don't want to run out of oxygen at this depth.
 The only thing we need to do now is write some minimal glue in the `index.php`. We can try and find a `sandcastle worm' for some extra sticky underwater glue.
+
+First let's add some bootstrap, this will help us for the styling of the game. So under the <title> tag, in our <head> we add:
+```html
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+```
+
+And at the bottom before our </body> closing tage we add:
+```html
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+```
+
+I actually want to see how I can see the cards for the player and the dealer. Here I think I still need to get these, so I will make a getter for the cards in the Player class.
+```php
+/**
+* @return array
+*/
+public function getCards(): array
+{
+    return $this->cards;
+}
+```
+
+Now in my index.php if is say:
+```php
+<?php
+foreach($_SESSION['blackjack']->getPlayer()->getCards() AS $card) {
+    echo $card->getUnicodeCharacter(true);
+}
+?>
+```
+![getting some very small cards](images/img1.png)
+I get the players cards so I can also do this for the dealer, but I still see that the cards are very, very, very tiny. So I need to fix this too, let's see what else we can do with the foreach syntax in php.
+I found some alternative ways to write control structures in php [here](https://www.php.net/manual/en/control-structures.alternative-syntax.php#:~:text=PHP%20offers%20an%20alternative%20syntax,%2C%20or%20endswitch%3B%20%2C%20respectively.).
+In the end I figured out I don't really need to use them, I just did the following to enlarge the cards (see code underneath) and I also added the cards for the dealer. For that we had to change `getPlayer()` to `getDealer()`.
+```php
+echo '<span style="font-size: 8rem">' . $card->getUnicodeCharacter(true) . '</span>';
+```
+![larger cards for player and dealer](images/img2.png)
+
 The final result we want should be the following:
 
 - [ ] When we click the hit button, call `hit` on the player, then check the lost status of the player. We need to pass a `Deck` variable to this function, we can use the `Blackjack::getDeck()` method for this.
