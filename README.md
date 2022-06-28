@@ -205,7 +205,7 @@ public function getDeck(): Deck
    - [x] `hit` should add a card to the player. If this brings him above 21, set the `lost` property to `true`. To count his score use the method `getScore` you wrote earlier. This method should expect the `$deck` variable as an argument from outside, to draw the card.
      ```php
      public function hit(Deck $deck) : void {
-       $this->cards[] += $deck->drawCard();
+       $this->cards[] = $deck->drawCard();
        if ($this->getScore($this->cards) > 21){
            $this->lost = true;
        }
@@ -335,6 +335,17 @@ In the end I figured out I don't really need to use them, I just did the followi
 echo '<span style="font-size: 8rem">' . $card->getUnicodeCharacter(true) . '</span>';
 ```
 ![larger cards for player and dealer](images/img2.png)
+
+Next up I want to see the score value of the cards for the player and the dealer. So I did the following in my index.php file:
+```php
+// For the player
+<h5>Score: <?php echo $_SESSION['blackjack']->getPlayer()->getScore()?></h5>
+// For the dealer
+<h5>Score: <?php echo $_SESSION['blackjack']->getDealer()->getScore()?></h5>
+```
+![we get the score for the player and dealer](images/img3.png)
+
+### Next up let's make this game work!
 
 The final result we want should be the following:
 

@@ -19,7 +19,7 @@ class Player
 
     public function hit(Deck $deck) : void {
         // `hit` should add a card to the player.
-        $this->cards[] += $deck->drawCard();
+        $this->cards[] = $deck->drawCard();
         // If this brings him above 21, set the `lost` property to `true`.
         // To count his score use the method `getScore` you wrote earlier.
         // This method should expect the `$deck` variable as an argument from outside, to draw the card.
