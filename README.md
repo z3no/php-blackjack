@@ -149,32 +149,33 @@ public function getDeck(): Deck
    - [x] Instantiate the Player class twice, insert it into the `player` property and a `dealer` property.
    - [x] Create a new `deck` object (the code has already been written for us!).
    - [x] Shuffle the cards with our `shuffle` method on `deck`.
-```php
-public function __construct()
-{
-  $this->player = new Player();
-  $this->dealer = new Player();
-  $this->deck = new Deck();
-  $this->deck->shuffle();
-}
-```
+    ```php
+    public function __construct()
+    {
+    $this->player = new Player();
+    $this->dealer = new Player();
+    $this->deck = new Deck();
+    $this->deck->shuffle();
+    }
+    ```
 8. In the [constructor](https://www.php.net/manual/en/language.oop5.decon.php) of the `Player` class:
    - [x] Make it expect the `Deck` object as a parameter.
-   - ```php
-     public function __construct(Deck $deck)
-     {
-        $this->lost = false;
-        $this->cards = [];
-     }
-     ```
+      ```php
+       public function __construct(Deck $deck)
+       {
+          $this->lost = false;
+          $this->cards = [];
+       }
+      ```
    - [x] Pass this `Deck` from the `Blackjack` constructor.
-   - ```php
+     ```php
      $this->player = new Player($this->deck);
      $this->dealer = new Player($this->deck);
      ```
-   - I'm not entirely sure about this one, the steps are kind of confusing me because it also says that at these steps we are working in the Player class constructor... But then again it says "pass this deck from the blackjack constructor". Still having some issues with terminology in English. 
-   - [x] Draw 2 cards for the player. You have to use an existing method for this from the `Deck` class.
-   - ```php
+  - I'm not entirely sure about this one, the steps are kind of confusing me because it also says that at these steps we are working in the Player class constructor... But then again it says "pass this deck from the blackjack constructor". Still having some issues with terminology in English. 
+
+  - [x] Draw 2 cards for the player. You have to use an existing method for this from the `Deck` class.
+     ```php
      public function __construct(Deck $deck)
      {
         $this->lost = false;
@@ -184,45 +185,45 @@ public function __construct()
         }
      }
      ```
-10. Go back to the `Player` class and add the following logic in your empty methods:
-    - [x] `getScore` loops over all the cards and returns the total value of that player.
-    - ```php
-      public function getScore(array $cards) : int {
-        $score = 0;
-        foreach ($this->cards as $card){
-            $score += $card->getValue();
-        }
-        return $score;
-      }
-      ```
-    - [x] `hasLost` will return the bool of the lost property.
-    - ```php
-      public function hasLost() : bool {
-        return $this->lost;
-      }
-      ```
-    - [x] `hit` should add a card to the player. If this brings him above 21, set the `lost` property to `true`. To count his score use the method `getScore` you wrote earlier. This method should expect the `$deck` variable as an argument from outside, to draw the card.
-    - ```php
-      public function hit(Deck $deck) : void {
-        $this->cards[] += $deck->drawCard();
-        if ($this->getScore($this->cards) > 21){
-            $this->lost = true;
-        }
-      }
-      ```
-      - [ ] (**optional**) For bonus points make the number 21 a class constant: this is a [magical value](https://stackoverflow.com/questions/47882/what-is-a-magic-number-and-why-is-it-bad) we want to avoid.
-    - [x] `surrender` should make you surrender the game (The dealer wins). This sets the property `lost` in the `player` instance to true.
-    - ```php
-      public function surrender() : bool {
-        return $this->lost = true;
-      }
-      ```
-    - `stand` does not have a method in the player class but will instead call hit on the `dealer` instance. (You have to do nothing here.)
+9. Go back to the `Player` class and add the following logic in your empty methods:
+   - [x] `getScore` loops over all the cards and returns the total value of that player.
+     ```php
+     public function getScore(array $cards) : int {
+       $score = 0;
+       foreach ($this->cards as $card){
+           $score += $card->getValue();
+       }
+       return $score;
+     }
+     ```
+   - [x] `hasLost` will return the bool of the lost property.
+     ```php
+     public function hasLost() : bool {
+       return $this->lost;
+     }
+     ```
+   - [x] `hit` should add a card to the player. If this brings him above 21, set the `lost` property to `true`. To count his score use the method `getScore` you wrote earlier. This method should expect the `$deck` variable as an argument from outside, to draw the card.
+     ```php
+     public function hit(Deck $deck) : void {
+       $this->cards[] += $deck->drawCard();
+       if ($this->getScore($this->cards) > 21){
+           $this->lost = true;
+       }
+     }
+     ```
+     - [ ] (**optional**) For bonus points make the number 21 a class constant: this is a [magical value](https://stackoverflow.com/questions/47882/what-is-a-magic-number-and-why-is-it-bad) we want to avoid.
+   - [x] `surrender` should make you surrender the game (The dealer wins). This sets the property `lost` in the `player` instance to true.
+     ```php
+     public function surrender() : bool {
+         return $this->lost = true;
+     }
+     ```
+   - [x] `stand` does not have a method in the player class but will instead call hit on the `dealer` instance. (You have to do nothing here.)
 
 #### Dive a little deeper to 12 meters and create the index.php file
 - Create an `index.php` file with the following code:
   - [x] Require all the files with the classes you already created. Ideally you want a **separate file** for each class.
-  - ```php
+    ```php
     <?php
     declare(strict_types=1);
     
@@ -234,17 +235,27 @@ public function __construct()
     ```
   - [x] Start the PHP session.
   - An important thing about the `session_start()` function is that it must be called at the beginning of the script, before any output is sent to the browser. Otherwise, you'll encounter the infamous `Headers are already sent` error.
-  - ```php
+    ```php
     session_start();
     ```
   - If the session does not have a `Blackjack` variable yet:
     - [x] Create a new `Blackjack` object.
     - [x] Put the `Blackjack` object in the session.
-  - ```php
+    ```php
     $blackjack = new Blackjack();
     $_SESSION['blackjack'] = $blackjack;
     ```
-- [ ] Use buttons or links to send to the `index.php` page what the player's action is (i.e. hit/stand/surrender).
+- [x] Use buttons or links to send to the `index.php` page what the player's action is (i.e. hit/stand/surrender).
+    ```php
+    <div>
+        <form method="post">
+            <h2>What will be your next move?</h2>
+            <button type="submit" name="hit" value="hit">Hit</button>
+            <button type="submit" name="stand" value="stand">Stand</button>
+            <button type="submit" name="surrender" value="surrender">Surrender</button>
+        </form>
+    </div>
+    ```
 
 Normally everything we needed to do for the player should be done at this depth. Take a moment to enjoy the view at this depth, take it all in.
 
