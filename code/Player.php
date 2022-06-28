@@ -47,6 +47,14 @@ class Player
         return $this->lost;
     }
 
+    /**
+     * @return array
+     */
+    public function getCards(): array
+    {
+        return $this->cards;
+    }
+
 }
 
 class Dealer extends Player {
