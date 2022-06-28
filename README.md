@@ -188,7 +188,7 @@ public function getDeck(): Deck
 9. Go back to the `Player` class and add the following logic in your empty methods:
    - [x] `getScore` loops over all the cards and returns the total value of that player.
      ```php
-     public function getScore(array $cards) : int {
+     public function getScore() : int {
        $score = 0;
        foreach ($this->cards as $card){
            $score += $card->getValue();

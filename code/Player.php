@@ -33,7 +33,7 @@ class Player
         return $this->lost = true;
     }
 
-    public function getScore(array $cards) : int {
+    public function getScore() : int {
         // Loop over the cards and return the total value of that player
         $score = 0;
         foreach ($this->cards as $card){
