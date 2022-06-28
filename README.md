@@ -263,9 +263,36 @@ Normally everything we needed to do for the player should be done at this depth.
 At this moment we still have the same rules for the player and the dealer, but there is an important difference.
 The dealer keeps playing with the `hit` function until he has **at least** 15. So how will we fix this at our current depth:
 - To change this behaviour:
-  - [ ] We are going to [extend](https://www.php.net/manual/en/language.oop5.inheritance.php) the `player` class and extend it to a newly created `dealer` class.
-  - [ ] Change the `Blackjack` class to create a new `dealer` object instead of a `player` object for the property of the dealer.
-  - [ ] Create a `hit` function that keeps drawing cards until the dealer has **at least** 15 points. Watch out at these depths, because there are tricky parts. We also need the `lost` check we already had in the `hit` function of the player. We could just dive up to it and copy the code, but this is never the solution. But if we take a good look around at this depth there is a chance we will spot a "Parrot fish" and on his sides you will find `parent::hit();`, we can then use this piece of code to call the old `hit` function.
+  - [x] We are going to [extend](https://www.php.net/manual/en/language.oop5.inheritance.php) the `player` class and extend it to a newly created `dealer` class.
+    ```php
+    class Dealer extends Player {
+    
+    }
+    ```
+  - [x] Change the `Blackjack` class to create a new `dealer` object instead of a `player` object for the property of the dealer.
+    ```php
+    private Player $player;
+    private Dealer $dealer;
+    private Deck $deck;
+
+    public function __construct()
+    {
+        $this->deck = new Deck();
+        $this->deck->shuffle();
+        $this->player = new Player($this->deck);
+        $this->dealer = new Dealer($this->deck);
+    }
+    ```
+  - [x] Create a `hit` function that keeps drawing cards until the dealer has **at least** 15 points. Watch out at these depths, because there are tricky parts. We also need the `lost` check we already had in the `hit` function of the player. We could just dive up to it and copy the code, but this is never the solution. But if we take a good look around at this depth there is a chance we will spot a "Parrot fish" and on his sides you will find `parent::hit();`, we can then use this piece of code to call the old `hit` function.
+    ```php
+    public function hit(Deck $deck): void
+    {
+        if($this->getScore()<15) {
+            parent::hit($deck);
+        }
+    }
+    ```
+I think this will do the trick for our dealer, let's go on to the next steps!
 
 #### Let's go for the final push and dive to 18 meters
 Now that all our classes are ready we just need to keep breathing calmly, we don't want to run out of oxygen at this depth.
