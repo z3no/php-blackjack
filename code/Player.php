@@ -5,10 +5,12 @@ declare(strict_types=1);
 class Player
 {
     private array $cards;
-    private bool $lost = false;
+    private bool $lost;
 
     public function __construct(Deck $deck)
     {
+        $this->lost = false;
+        $this->cards = [];
         // Starting hand for the player
         for ($i=0; $i<2; $i++) {
             $this->cards[] = $deck->drawCard();
