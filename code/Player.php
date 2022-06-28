@@ -47,5 +47,17 @@ class Player
         return $this->lost;
     }
 
+}
+
+class Dealer extends Player {
+
+    // create a hit function that keeps drawing cards until the dealer has at least 15 points.
+    //The tricky part is that we also need the lost check we already had in the hit function of the player.
+    public function hit(Deck $deck): void
+    {
+        if($this->getScore()<15) {
+            parent::hit($deck);
+        }
+    }
 
 }
