@@ -48,6 +48,7 @@ if (isset($_POST['action'])) {
     // STAND BUTTON
     elseif ($_POST['action'] === 'stand'){
         $dealer->hit($deck);
+        $invisible = ' invisible';
         if (!$dealer->hasLost()) {
             if ($player->getScore() < $dealer->getScore()) {
                 $message = '<div class="alert alert-danger" role="alert">The dealer wins! Reset for payback!</div>';
@@ -93,19 +94,25 @@ if (isset($_POST['action'])) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="http://fonts.cdnfonts.com/css/underwater-love" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
 
     <title>Blackjack the PHP OOP way</title>
 </head>
 <body>
-<div class="container px-4">
+<div class="container-md px-4">
 
-    <div class="row">
+    <div class="row text-center my-4">
+        <h1>Veintiuna the PHP OOP way</h1>
+    </div>
+
+    <div class="row text-center">
         <p><?php echo $message ?></p>
     </div>
 
-    <div class="row gx-5">
+    <div class="row gx-5 my-4">
         <!-- PLAYER -->
-        <div class="col">
+        <div class="col text-center">
             <h2>PLAYER</h2>
             <h5>Total: <?php echo $player->getScore()?></h5>
             <?php
@@ -116,7 +123,7 @@ if (isset($_POST['action'])) {
         </div>
 
         <!-- DEALER -->
-        <div class="col">
+        <div class="col text-center">
             <h2>DEALER</h2>
             <h5>Total: <?php echo $dealer->getScore()?></h5>
             <?php
@@ -127,13 +134,16 @@ if (isset($_POST['action'])) {
         </div>
     </div>
 
-    <form method="post">
-        <h2>What will be your next move?</h2>
-        <button type="submit" name="action" value="hit" class="btn btn-dark">Hit</button>
-        <button type="submit" name="action" value="stand" class="btn btn-success">Stand</button>
-        <button type="submit" name="action" value="surrender" class="btn btn-danger">Surrender</button>
-        <button type="submit" name="action" value="reset" class="btn btn-danger">Reset</button>
-    </form>
+    <div class="row text-center my-5">
+        <form method="post">
+            <h2>Hit, stand, surrender... Your move!</h2>
+            <button type="submit" name="action" value="hit" class="btn btn-dark <?php echo $invisible ?>">Hit</button>
+            <button type="submit" name="action" value="stand" class="btn btn-success">Stand</button>
+            <button type="submit" name="action" value="surrender" class="btn btn-danger">Surrender</button>
+            <button type="submit" name="action" value="reset" class="btn btn-danger">Reset</button>
+        </form>
+    </div>
+
 </div>
 
 
