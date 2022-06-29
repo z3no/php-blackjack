@@ -292,6 +292,18 @@ The dealer keeps playing with the `hit` function until he has **at least** 15. S
         }
     }
     ```
+    ^^^^
+  - This was not working... So I had to change it, so I thought of working with a do while.
+    ![Dealer only takes one card](images/img4.png)
+    
+    Changed it to:
+    ```php
+    if($this->getScore()<15) {
+        do {
+            parent::hit($deck);
+        } while ($this->getScore()<15);
+    }
+    ```
 I think this will do the trick for our dealer, let's go on to the next steps!
 
 #### Let's go for the final push and dive to 18 meters
@@ -347,14 +359,27 @@ Next up I want to see the score value of the cards for the player and the dealer
 
 ### Next up let's make this game work!
 
-The final result we want should be the following:
+### The final result we want should be the following:
+
+#### Still a lot of bugs for this part
+
+I'm going to put the buttons inside an if(isset()) function like so:
+
+```php
+if (isset($_POST['action'])) {
+
+}
+```
 
 - [ ] When we click the hit button, call `hit` on the player, then check the lost status of the player. We need to pass a `Deck` variable to this function, we can use the `Blackjack::getDeck()` method for this.
-- [ ] When we click the stand button, call `hit` on the dealer, then check the lost status of the dealer. If he is not lost, compare scores to set the winner (if it's equal the house always wins).
-- [ ] If we click surrender, the dealer automatically wins.
-- [ ] On the page we always want to display the scores of both players.
-- [ ] If there is a winner, display it.
-- [ ] End of the game, destroy the current `blackjack` variable so the game restarts.
+  ```php
+  
+  ```
+- [x] When we click the stand button, call `hit` on the dealer, then check the lost status of the dealer. If he is not lost, compare scores to set the winner (if it's equal the house always wins).
+- [x] If we click surrender, the dealer automatically wins.
+- [x] On the page we always want to display the scores of both players.
+- [x] If there is a winner, display it.
+- [x] End of the game, destroy the current `blackjack` variable so the game restarts.
 
 ### For the Advanced Open Water SCUBA Divers these are nice to have
 - Implement an underwater betting system
