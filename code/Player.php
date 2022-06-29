@@ -15,6 +15,10 @@ class Player
         for ($i=0; $i<2; $i++) {
             $this->cards[] = $deck->drawCard();
         }
+        /* Also a possibility
+         * $this->cards[] = $deck->drawCard();
+         * $this->cards[] = $deck->drawCard();
+        */
     }
 
     public function hit(Deck $deck) : void {
@@ -63,7 +67,7 @@ class Dealer extends Player {
     //The tricky part is that we also need the lost check we already had in the hit function of the player.
     public function hit(Deck $deck): void
     {
-        if($this->getScore()<15) {
+        if($this->getScore()<=15) {
             do {
                 parent::hit($deck);
             } while ($this->getScore()<15);
