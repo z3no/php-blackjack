@@ -372,14 +372,77 @@ if (isset($_POST['action'])) {
 ```
 
 - [ ] When we click the hit button, call `hit` on the player, then check the lost status of the player. We need to pass a `Deck` variable to this function, we can use the `Blackjack::getDeck()` method for this.
+  Not sure if this is right, it seems to work for me, but I don't feel like it meets the brief for this point.
   ```php
-  
+  // HIT BUTTON
+  if ($_POST['action'] === 'hit'){
+    $player->hit($deck);
+    if ($player->hasLost()){
+        $message = '<div class="alert alert-danger" role="alert">You lose! Reset to try again!</div>';
+    }
+  }
   ```
 - [x] When we click the stand button, call `hit` on the dealer, then check the lost status of the dealer. If he is not lost, compare scores to set the winner (if it's equal the house always wins).
+  ```php
+  // STAND BUTTON
+  elseif ($_POST['action'] === 'stand'){
+    $dealer->hit($deck);
+    if (!$dealer->hasLost()) {
+        if ($player->getScore() < $dealer->getScore()) {
+            $message = '<div class="alert alert-danger" role="alert">The dealer wins! Reset for payback!</div>';
+        } elseif ($player->getScore() == $dealer->getScore()) {
+            $message = '<div class="alert alert-danger" role="alert">It is a tie! Too bad the House wins! Press reset to try again!</div>';
+        } else {
+            $message = '<div class="alert alert-success" role="alert">You are the winner! Reset the cards for another round!</div>';
+        }
+    } else {
+        $message = '<div class="alert alert-success" role="alert">You are the winner! Reset the cards for another round!</div>';
+    }
+  }
+  ```
 - [x] If we click surrender, the dealer automatically wins.
+  ```php
+  // SURRENDER BUTTON
+  elseif ($_POST['action'] === 'surrender'){
+    $message = '<div class="alert alert-danger" role="alert">You surrendered! Sometimes it is the better option. Please reset the cards.</div>';
+  }
+  ```
 - [x] On the page we always want to display the scores of both players.
+  - In my html I display the score (total of the cards) the following way:
+    ```html
+    <!-- FOR THE PLAYER -->
+    <h5>Total: <?php echo $player->getScore()?></h5>
+    
+    <!-- FOR THE DEALER -->
+    <h5>Total: <?php echo $dealer->getScore()?></h5>
+    ```
 - [x] If there is a winner, display it.
+  - For this I made a `$message` variable in my index.php file:
+    ```php
+    $message = "";
+    ```
+    ```html
+    <div class="row">
+        <p><?php echo $message ?></p>
+    </div>
+    ```
 - [x] End of the game, destroy the current `blackjack` variable so the game restarts.
+  - Here I made a reset button that resets the session
+    ```php
+    // RESET GAME
+    elseif ($_POST['action'] === 'reset'){
+        //Unset Session
+        unset($_SESSION['blackjack']);
+    
+        $_SESSION['blackjack'] = new Blackjack();
+
+        $blackJack = $_SESSION['blackjack'];
+
+        $player = $blackJack->getPlayer();
+        $dealer = $blackJack->getDealer();
+        $deck = $blackJack->getDeck();
+    }
+    ```
 
 ### For the Advanced Open Water SCUBA Divers these are nice to have
 - Implement an underwater betting system
